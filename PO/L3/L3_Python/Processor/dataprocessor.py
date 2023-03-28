@@ -170,9 +170,9 @@ class TxtDataProcessor(DataProcessor):
     """ Реализация класса-обработчика txt-файлов """
 
     def read(self):
-        """ Реализация метода для чтения TXT-файла (разедитель колонок - пробелы) """
+        """ Реализация метода для чтения TXT-файла (разедитель колонок - табуляция) """
         try:
-            self._dataset = pandas.read_table(self._datasource, sep='\s+', engine='python')
+            self._dataset = pandas.read_table(self._datasource, sep='\t', engine='python')
             col_names = self._dataset.columns
             if len(col_names) < 2:
                 return False
