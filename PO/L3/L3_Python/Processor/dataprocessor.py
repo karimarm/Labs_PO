@@ -25,16 +25,27 @@ class DataProcessor(ABC):
         """ Метод, инициализирующий источник данных """
         pass
 
+    @abstractmethod
+    def print_result(self) -> None:
+        """ Абстрактный метод для вывода результата на экран """
+        pass
+
+
     def run(self) -> None:
         """ Метод, запускающий обработку данных """
 
-        choise = int(input("1) Отфильтровать по годам и странам\n2) Отсортировать по крадитным ставкам\n3) Отфильтровать кредитные ставки\nВведите команду: "))
-        if choise == 1:
-            self.result = self.filter_by_years_and_countries()
-        elif choise == 2:
-            self.result = self.sort_by_credit_rates()
-        elif choise == 3:
-            self.result = self.filter_credit_rates()
+        while(True):
+            choise = int(input("1) Отфильтровать по годам и странам\n2) Отсортировать по кредитным ставкам\n3) Отфильтровать кредитные ставки\nВведите команду: "))
+            if choise == 1:
+                self.result = self.filter_by_years_and_countries()
+            elif choise == 2:
+                self.result = self.sort_by_credit_rates()
+            elif choise == 3:
+                self.result = self.filter_credit_rates()
+            else:
+                print("\nКоманда не распознана!")
+                continue
+            break
 
     """
         Ниже представлены примеры различных методов для обработки набора данных
@@ -48,7 +59,7 @@ class DataProcessor(ABC):
         """
         return df.sort_values(by=[colname], ascending=asc)
 
-    def remove_col_by_name(self, df: pandas.DataFrame, col_name: List[str]):
+    def remove_col_by_name(self, df: pandas.DataFrame, col_name: List[str]) -> pandas.DataFrame:
         """
             Метод remove_col_by_name принимает входной набор данных и список имён колонок для удаления.
             Возвращает набор данных с удалёнными колонками.
@@ -126,12 +137,6 @@ class DataProcessor(ABC):
             rates.append(i)
         result_dt = result_dt[result_dt[year].isin(rates)]
         return result_dt
-
-
-    @abstractmethod
-    def print_result(self) -> None:
-        """ Абстрактный метод для вывода результата на экран """
-        pass
 
 
 class CsvDataProcessor(DataProcessor):
