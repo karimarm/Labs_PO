@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<article>
+     <form id="form_credit_rates" method="POST">
+        <fieldset>
+
+        <p>Годы</p>
+        <select name="select_year" required>
+            {% for row in years %}
+                <option value={{row[1]}}>{{row[1]}}</option>
+            {% endfor %}
+        </select>
+
+        <p>Страны</p>
+        <select class="select_countries" name="select_countries[]" multiple="multiple" required>
+            {% for row in countries %}
+                <option value={{row[1]}}>{{row[1]}}</option>
+            {% endfor %}
+        </select>
+
+        <p><label for="min_credit_rate">Минимальная ставка</label><br><input type="text" name="min_credit_rate"></p>
+        <p><label for="max_credit_rate">Максимальная ставка</label><br><input type="text" name="max_credit_rate"></p>
+
+        <p>Сортировка</p>
+            <p><input name="check_sort" type="radio" value="countries" checked>По странам</p>
+            <p><input name="check_sort" type="radio" value="credit_rates">По кредитным ставкам</p>
+
+        </fieldset>
+        <p><input type="submit" value="Отправить"></p>
+    </form>
+</article>
+
+{% endblock %}

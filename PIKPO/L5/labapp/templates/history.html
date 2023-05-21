@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <article>
+        <table align="center">
+            <tr>
+                <th>Имя файла</th>
+                <th>Идентификатор</th>
+                <th>Дата обработки</th>
+            </tr>
+            <tbody>
+            {% for row in processed_files %}
+                <tr>
+                    <td>
+                        <a href="/data/{{row[0]}}">{{row[1]}}</a>
+                    </td>
+                    <td>
+                        {{row[0]}}
+                    </td>
+                    <td>
+                        {{row[2]}}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </article>
+
+{% endblock %}
